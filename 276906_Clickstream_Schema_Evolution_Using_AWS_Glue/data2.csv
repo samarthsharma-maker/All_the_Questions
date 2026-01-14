@@ -1,0 +1,3 @@
+user_id,event_time,event_type,page_url,session_duration
+u789,2025-06-20T15:07:00Z,click,/checkout,45
+u999,2025-06-20T15:10:00Z,view,/success,10

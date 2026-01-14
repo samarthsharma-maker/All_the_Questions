@@ -1,0 +1,5 @@
+*.zip
+*.tar.gz
+*.egg
+*.egg-info
+python_devops/*

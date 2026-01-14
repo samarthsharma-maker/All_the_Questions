@@ -1,0 +1,4 @@
+user_id,event_time,event_type,page_url
+u123,2025-06-20T14:01:05Z,view,/home
+u456,2025-06-20T14:02:30Z,click,/product/42
+u123,2025-06-20T14:05:12Z,view,/cart
