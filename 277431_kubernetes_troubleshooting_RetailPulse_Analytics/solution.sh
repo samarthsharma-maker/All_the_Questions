@@ -6,10 +6,11 @@ set -euo pipefail
 BASE_DIR="$HOME/data-processor-solution"
 NAMESPACE="techflow-prod"
 SERVICE_ACCOUNT="data-processor-sa"
+CONFIG_MAP="gateway-config"
 
 NS_FILE="${BASE_DIR}/namespace.yaml"
 SA_FILE="${BASE_DIR}/serviceaccount.yaml"
-CM_FILE="${BASE_DIR}/data-processor-configmap.yaml"
+CM_FILE="${BASE_DIR}/${CONFIG_MAP}map.yaml"
 DEPLOY_FILE="${BASE_DIR}/data-processor-deployment.yaml"
 
 mkdir -p "$BASE_DIR"
@@ -42,8 +43,8 @@ cat > "$CM_FILE" <<EOF
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: data-processor-config
-  namespace: production
+  name: ${CONFIG_MAP}
+  namespace: ${NAMESPACE}
 data:
   processor.conf: |
     PROCESSING_THREADS=4
@@ -58,7 +59,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: data-processor
-  namespace: production
+  namespace: ${NAMESPACE}
   labels:
     app: data-processor
 spec:
@@ -99,7 +100,7 @@ spec:
       volumes:
       - name: config
         configMap:
-          name: data-processor-config
+          name: ${CONFIG_MAP}
 EOF
 
 # -------------------------------
@@ -113,5 +114,5 @@ kubectl apply -f "$DEPLOY_FILE"
 # -------------------------------
 # Verify rollout
 # -------------------------------
-kubectl rollout status deployment/data-processor -n production
-kubectl get pods -n production
+kubectl rollout status deployment/data-processor -n ${NAMESPACE}
+kubectl get pods -n ${NAMESPACE}

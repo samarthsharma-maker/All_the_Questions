@@ -5,7 +5,7 @@ set -euo pipefail
 
 create_s3_bucket() {
     local region="${AWS_REGION:-us-west-2}"
-    local bucket_prefix="clickstream-schema-evolution-bucket"
+    local bucket_prefix="clickstream-raw"
     local account_id=$(aws sts get-caller-identity --query Account --output text)
 
     if [ -z "$account_id" ]; then
@@ -43,7 +43,7 @@ create_sqs_queue() {
 
 attach_sqs_policy() {
     local account_id=$(aws sts get-caller-identity --query Account --output text)
-    local bucket_prefix="clickstream-schema-evolution-bucket"
+    local bucket_prefix="clickstream-raw"
     local bucket_name="${bucket_prefix}-${account_id}"
     local region="${AWS_REGION:-us-west-2}"
     local queue_prefix="ClickstreamSchemaEvolutionQueue"
@@ -117,7 +117,7 @@ EOF
 
 configure_s3_notification() {
     local account_id=$(aws sts get-caller-identity --query Account --output text)
-    local bucket_prefix="clickstream-schema-evolution-bucket"
+    local bucket_prefix="clickstream-raw"
     local bucket_name="${bucket_prefix}-${account_id}"
     local region="${AWS_REGION:-us-west-2}"
     local queue_prefix="ClickstreamSchemaEvolutionQueue"

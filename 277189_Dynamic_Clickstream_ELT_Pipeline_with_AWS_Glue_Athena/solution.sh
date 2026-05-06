@@ -736,3 +736,5 @@ echo ""
 echo "Query your data in Athena:"
 echo "  SELECT * FROM ${DATABASE_NAME}.${PROCESSED_TABLE_NAME} LIMIT 10;"
 echo ""
+
+
